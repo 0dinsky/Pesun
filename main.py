@@ -1,25 +1,29 @@
 import tkinter as tk
-from tkinter import * 
-from tkinter import messagebox, ttk
+from PIL import ImageTk, Image
 
-pisun_int = 0
+class Game:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Пiсюн клiк")
+        self.root.geometry("300x400")
+        self.pisun_int = 0
 
-root = Tk()
-root.title("Писюн кликер")
-root.geometry("300x400")
+        self.image = Image.open("14.png")
+        self.image = self.image.resize((200, 200), Image.LANCZOS)
+        self.photo = ImageTk.PhotoImage(self.image)
 
-frame = Frame(
-   root,
-   padx=50,
-   pady=10
-)
-frame.pack(fill=tk.BOTH, expand=True)
-root.resizable(False, False)
+        self.label = tk.Label(root, text=f"Пiсюнчиков натапано: {self.pisun_int}", bg="LightSteelBlue")
+        self.label.pack(pady=20)
+        self.image_label = tk.Label(root, image=self.photo, bg="LightSteelBlue", cursor="hand2")
+        self.image_label.pack(pady=10)
+        self.image_label.bind("<Button-1>", lambda event: self.add_clicks())
 
-label = Label(frame, text="Писюнов натапано: ")
-label.grid(row=1, column=1)
+    def add_clicks(self):
+        self.pisun_int += 1
+        self.label.config(text=f"Пiсюнчиков натапано: {self.pisun_int}")
 
-btn = ttk.Button(image=photo)
-btn.pack()
 if __name__ == "__main__":
+    root = tk.Tk()
+    root.configure(bg="LightSteelBlue")
+    game = Game(root)
     root.mainloop()
