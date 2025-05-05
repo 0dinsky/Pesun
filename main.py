@@ -1,5 +1,5 @@
 import tkinter as tk
-from PIL import ImageTk, Image
+from tkinter import *
 
 class Game:
     def __init__(self, root):
@@ -8,13 +8,10 @@ class Game:
         self.root.geometry("300x400")
         self.pisun_int = 0
 
-        self.image = Image.open("14.png")
-        self.image = self.image.resize((200, 200), Image.LANCZOS)
-        self.photo = ImageTk.PhotoImage(self.image)
-
+        photo = PhotoImage(file='14.png')
         self.label = tk.Label(root, text=f"Пiсюнчиков натапано: {self.pisun_int}", bg="LightSteelBlue")
         self.label.pack(pady=20)
-        self.image_label = tk.Label(root, image=self.photo, bg="LightSteelBlue", cursor="hand2")
+        self.image_label = tk.Label(root, image=photo, bg="LightSteelBlue", cursor="hand2")
         self.image_label.pack(pady=10)
         self.image_label.bind("<Button-1>", lambda event: self.add_clicks())
 
